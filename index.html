@@ -153,9 +153,50 @@ html,body{overflow-x:hidden;max-width:100%}
  .faq details p{text-align:left}
  .faq details ol{text-align:left;list-style-position:outside;padding-left:22px}
 }
+
+/* ===== Temporizador (azul, branco e vermelho) e botão do cupom ===== */
+html{scroll-padding-top:80px}
+.timer{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;text-align:center;background:#0a2463;color:#fff;font-weight:700;font-size:1rem;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top,0px));border-bottom:5px solid transparent;border-image:repeating-linear-gradient(90deg,#fff 0 18px,#cc0505 18px 36px) 1}
+#tcaixas{display:inline-flex;align-items:center;gap:6px}
+.tbox{display:inline-flex;align-items:baseline;gap:4px;background:#cc0505;color:#fff;border:2px solid #fff;border-radius:8px;padding:4px 10px}
+.tbox b{font-size:1.5rem;line-height:1;font-variant-numeric:tabular-nums}
+.tbox small{font-size:.7rem;text-transform:uppercase;font-weight:700}
+.tsep{font-size:1.5rem;font-weight:800}
+button.btn{border:0;cursor:pointer;font-family:inherit;-webkit-appearance:none;appearance:none}
+.bonus .cards{margin-top:40px}
+.cardp .a{font-family:Montserrat,Arial,sans-serif;font-size:1.3rem;margin:14px 0 0}
+.cardp .a b{color:var(--cb);font-weight:800}
+@media(max-width:800px){
+ .timer{font-size:.85rem;gap:6px 8px;padding:8px 10px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+ .tbox b,.tsep{font-size:1.25rem}
+ .bonus .cards{margin-top:24px}
+ .cardp .a{font-size:1.15rem}
+ html{scroll-padding-top:110px}
+}
+
+/* ===== Perguntas frequentes: abertura e fechamento suaves ===== */
+.faq-c{overflow:hidden}
+.faq summary svg{transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .2s ease}
+.faq summary:hover svg{opacity:.75}
+.faq summary{transition:opacity .2s ease}
+.faq details.closing summary svg{transform:rotate(0)}
+
+/* ===== Título das perguntas frequentes ===== */
+.faq h2{font-weight:300;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(1.8rem,4.2vw,2.8rem);line-height:1.2;margin:0 0 44px;text-align:center;color:#fff}
+.faq h2 b{font-weight:800}
+.faq h2::after{content:"";display:block;width:96px;height:5px;margin:18px auto 0;border-radius:3px;background:linear-gradient(90deg,#fff 0 33.3%,#cc0505 33.3% 66.6%,#fff 66.6% 100%)}
+@media(max-width:800px){
+ .faq h2{font-size:1.65rem;letter-spacing:.04em;margin-bottom:28px}
+ .faq h2::after{width:72px;height:4px;margin-top:14px}
+}
 </style>
 </head>
 <body>
+<div class="timer" id="tbar" role="timer">
+ <span id="tantes">Black Friday: você tem</span>
+ <span id="tcaixas"><span class="tbox"><b id="tm">10</b><small>min</small></span><span class="tsep">:</span><span class="tbox"><b id="ts">00</b><small>seg</small></span></span>
+ <span id="tdepois">para finalizar sua compra com o cupom BLACK50</span>
+</div>
 
 <section class="hero">
  <div class="wrap grid">
@@ -189,7 +230,6 @@ html,body{overflow-x:hidden;max-width:100%}
 <section class="bonus center">
  <div class="wrap">
   <h2><span>Bônus: ao comprar o curso hoje você garante 50% de desconto!!</span></h2>
-  <p class="l">Clique no botão do WHATSAPP para pegar o CUPOM direto com a teacher Lily!!</p>
   <div class="cards">
    <div class="cardp">
     <svg viewBox="0 0 90 90" fill="none" stroke="#141436" stroke-width="3.5" stroke-linejoin="round"><rect x="16" y="38" width="58" height="42" fill="#3b44b7"/><rect x="10" y="28" width="70" height="14" fill="#fff"/><path d="M45 28v52M45 28C36 8 18 14 28 26M45 28C54 8 72 14 62 26"/></svg>
@@ -198,11 +238,11 @@ html,body{overflow-x:hidden;max-width:100%}
    <div class="cardp">
     <svg viewBox="0 0 90 90" fill="none" stroke="#141436" stroke-width="3.5" stroke-linejoin="round"><rect x="16" y="38" width="58" height="42" fill="#3b44b7"/><rect x="10" y="28" width="70" height="14" fill="#fff"/><path d="M45 28v52M45 28C36 8 18 14 28 26M45 28C54 8 72 14 62 26"/></svg>
     <p class="t">POR APENAS<br>R$ 197!!</p>
-    <p class="a">CORRA! PEGUE O <b>CUPOM</b> COM A TEACHER CLICANDO NO <b>LINK DO WHATSAPP</b> AQUI NESTE SITE, E DEPOIS É SÓ ADICIONAR O CUPOM NO CARRINHO</p>
+    <p class="a">COM O CUPOM <b>BLACK50</b></p>
    </div>
   </div>
-  <p class="naoesq">Não esqueça de clicar no botão abaixo pra pegar o cupom direto com a teacher Lily!!</p>
-  <a class="btn verde" href="https://wa.me/message/TGMC2MQBYVOIC1">Quero começar agora!</a>
+  <p class="naoesq">Não esqueça de clicar no botão abaixo pra pegar o cupom e adicioná-lo no carrinho</p>
+  <button type="button" class="btn verde" id="copiar" aria-live="polite">Copiar cupom BLACK50</button>
  </div>
 </section>
 
@@ -231,7 +271,7 @@ html,body{overflow-x:hidden;max-width:100%}
 
 <section class="faq">
  <div class="wrap">
-  <h2><span>Perguntas frequentes</span></h2>
+  <h2>Perguntas <b>frequentes</b></h2>
   <details><summary>Para quem é esse produto?<svg viewBox="0 0 24 14" fill="none" stroke="#9aa3c7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg></summary><p>Qualquer pessoa que queira iniciar a aprender inglês.</p></details>
   <details><summary>Como funciona o 'Prazo de Garantia'?<svg viewBox="0 0 24 14" fill="none" stroke="#9aa3c7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg></summary><p>O Prazo de Garantia é o período que você tem para pedir o reembolso integral do valor pago pela sua compra, caso o produto não seja satisfatório.</p></details>
   <details><summary>O que é e como funciona o Certificado de Conclusão digital?<svg viewBox="0 0 24 14" fill="none" stroke="#9aa3c7" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l10 10L22 2"/></svg></summary><p>Alguns cursos online oferecem um certificado digital de conclusão. Alunos podem emitir esse certificado ao final do curso ou entrando em contato com o Autor ou Autora. Esses certificados podem ser compartilhados em redes sociais como o LinkedIn e inseridos em informações curriculares.</p></details>
@@ -264,5 +304,71 @@ html,body{overflow-x:hidden;max-width:100%}
  <a href="/politica-de-privacidade.html">Política de Privacidade</a> · <a href="/termos-de-uso.html">Termos de Uso</a>
 </footer>
 
+<script>
+(function(){
+ var fim=Date.now()+10*60*1000,m=document.getElementById('tm'),s=document.getElementById('ts'),t;
+ function p(n){return n<10?'0'+n:''+n}
+ function tick(){
+  var r=Math.max(0,Math.round((fim-Date.now())/1000));
+  m.textContent=p(Math.floor(r/60));s.textContent=p(r%60);
+  if(r<=0){
+   clearInterval(t);
+   document.getElementById('tcaixas').style.display='none';
+   document.getElementById('tdepois').style.display='none';
+   document.getElementById('tantes').textContent='O cronômetro acabou, mas o cupom BLACK50 continua valendo enquanto a promoção de Black Friday estiver ativa.';
+  }
+ }
+ tick();t=setInterval(tick,1000);
+
+ var b=document.getElementById('copiar'),orig=b.textContent;
+ function ok(){b.textContent='Código copiado!';setTimeout(function(){b.textContent=orig},2500)}
+ function fallback(){
+  var x=document.createElement('textarea');x.value='BLACK50';x.setAttribute('readonly','');
+  x.style.position='fixed';x.style.opacity='0';document.body.appendChild(x);x.select();
+  try{document.execCommand('copy');ok()}catch(e){b.textContent='Copie o código: BLACK50'}
+  document.body.removeChild(x);
+ }
+ b.addEventListener('click',function(){
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText('BLACK50').then(ok,fallback)}else{fallback()}
+ });
+})();
+</script>
+<script>
+(function(){
+ var reduz=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var SAI='cubic-bezier(.22,1,.36,1)',ENTRA='cubic-bezier(.4,0,.2,1)';
+ document.querySelectorAll('.faq details').forEach(function(d){
+  var sum=d.querySelector('summary'),wrap=document.createElement('div'),anims=[];
+  wrap.className='faq-c';
+  while(sum.nextSibling){wrap.appendChild(sum.nextSibling)}
+  d.appendChild(wrap);
+  function limpar(){anims.forEach(function(a){a.cancel()});anims=[]}
+  function filhos(frames,opt){
+   Array.prototype.forEach.call(wrap.children,function(c){anims.push(c.animate(frames,opt))});
+  }
+  sum.addEventListener('click',function(e){
+   if(reduz||!wrap.animate){return}
+   e.preventDefault();
+   limpar();
+   d.classList.remove('closing');
+   if(d.open){
+    var h=wrap.offsetHeight;
+    d.classList.add('closing');
+    var ah=wrap.animate([{height:h+'px'},{height:'0px'}],{duration:380,easing:ENTRA,fill:'forwards'});
+    anims.push(ah);
+    filhos([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-8px)'}],{duration:260,easing:'ease-in',fill:'forwards'});
+    ah.onfinish=function(){d.open=false;d.classList.remove('closing');limpar()};
+   }else{
+    d.open=true;
+    var alt=wrap.offsetHeight;
+    var ab=wrap.animate([{height:'0px'},{height:alt+'px'}],{duration:560,easing:SAI});
+    anims.push(ab);
+    filhos([{opacity:0,transform:'translateY(-12px)'},{opacity:1,transform:'translateY(0)'}],{duration:520,delay:90,easing:SAI,fill:'backwards'});
+    ab.onfinish=function(){limpar()};
+   }
+  });
+ });
+})();
+</script>
 </body>
 </html>
