@@ -194,7 +194,7 @@ button.btn{border:0;cursor:pointer;font-family:inherit;-webkit-appearance:none;a
 <body>
 <div class="timer" id="tbar" role="timer">
  <span id="tantes">Black Friday: você tem</span>
- <span id="tcaixas"><span class="tbox"><b id="tm">10</b><small>min</small></span><span class="tsep">:</span><span class="tbox"><b id="ts">00</b><small>seg</small></span></span>
+ <span id="tcaixas"><span class="tbox"><b id="th">01</b><small>h</small></span><span class="tsep">:</span><span class="tbox"><b id="tm">00</b><small>min</small></span><span class="tsep">:</span><span class="tbox"><b id="ts">00</b><small>seg</small></span></span>
  <span id="tdepois">para finalizar sua compra com o cupom BLACK50</span>
 </div>
 
@@ -306,11 +306,11 @@ button.btn{border:0;cursor:pointer;font-family:inherit;-webkit-appearance:none;a
 
 <script>
 (function(){
- var fim=Date.now()+10*60*1000,m=document.getElementById('tm'),s=document.getElementById('ts'),t;
+ var fim=Date.now()+60*60*1000,h=document.getElementById('th'),m=document.getElementById('tm'),s=document.getElementById('ts'),t;
  function p(n){return n<10?'0'+n:''+n}
  function tick(){
   var r=Math.max(0,Math.round((fim-Date.now())/1000));
-  m.textContent=p(Math.floor(r/60));s.textContent=p(r%60);
+  h.textContent=p(Math.floor(r/3600));m.textContent=p(Math.floor((r%3600)/60));s.textContent=p(r%60);
   if(r<=0){
    clearInterval(t);
    document.getElementById('tcaixas').style.display='none';
